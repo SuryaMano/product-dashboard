@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { setSearchTerm } from "../../../store/dashboardSlice";
 import styles from "../../../assets/css/SearchBar.module.css";
 
 export default function SearchBar() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const searchTerm = useAppSelector((state: any) => state.dashboard.searchTerm);
+  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.wrapper}>
@@ -15,7 +17,7 @@ export default function SearchBar() {
         className={styles.input}
         placeholder="Search by title…"
         value={searchTerm}
-        onChange={(event) => setSearchTerm(event.target.value)}
+        onChange={(event) => dispatch(setSearchTerm(event.target.value))}
       />
     </div>
   );

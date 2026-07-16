@@ -17,3 +17,7 @@ export interface Product extends ApiProduct {
   discountRate: number;
   discountedPrice: number;
 }
+
+export type SortDirection = "asc" | "desc";
+
+export type SortKey = "title" | "price";

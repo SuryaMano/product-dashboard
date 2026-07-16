@@ -1,28 +1,36 @@
 import { memo } from "react";
-import styles from "../../../assets/css/ProductCard.module.css";
-import type { Product } from "../types";
+import type { Product } from "../product.types";
 import { formatPrice } from "../../../utils/format";
+import styles from "../../../assets/css/ProductCard.module.css";
 
 interface Props {
   product: Product;
-}
+  onSelect: (product: Product) => void;
+  }
 
 /**
  * Product card wrapped in memo because the grid can re-render on
  * every keystroke while the individual cards rarely change
  */
 
-function ProductCard({ product }: Props) {
+function ProductCard({ product, onSelect }: Props) {
   const hasDiscount = product.discountedPrice < product.price;
+
   return (
     <li className={styles.card}>
-      <div>
-        <img className={styles.image} src={product.image} alt={product.title} loading="lazy" />
-      </div>
+      <button
+        type="button"
+        className={styles.trigger}
+        onClick={() => onSelect(product)}
+        aria-label={`View details for ${product.title}`}
+      >
+        <div className={styles.imageWrap}>
+          <img className={styles.image} src={product.image} alt={product.title} loading="lazy" />
+        </div>
 
-      <div className={styles.body}>
-        <span className={styles.category}>{product.category}</span>
-        <h3 className={styles.title}>{product.title}</h3>
+        <div className={styles.body}>
+          <span className={styles.category}>{product.category}</span>
+          <h3 className={styles.title}>{product.title}</h3>
 
           <div className={styles.priceRow}>
             <span className={styles.price}>{formatPrice(product.discountedPrice)}</span>
@@ -35,7 +43,8 @@ function ProductCard({ product }: Props) {
           ★ {product.rating.rate}
           <span className={styles.ratingCount}>({product.rating.count})</span>
         </span>
-      </div>
+        </div>
+      </button>
     </li>
   );
 }

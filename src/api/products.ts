@@ -1,5 +1,5 @@
 
-import type { ApiProduct, Product } from "../features/ProductDashboard/types";
+import type { ApiProduct, Product } from "../features/ProductDashboard/product.types";
 
 const PRODUCTS_URL = "https://fakestoreapi.com/products";
 
