@@ -1,9 +1,10 @@
 import { memo } from "react";
 import styles from "../../../assets/css/ProductCard.module.css";
-import type { ApiProduct } from "../types";
+import type { Product } from "../types";
+import { formatPrice } from "../../../utils/format";
 
 interface Props {
-  product: ApiProduct;
+  product: Product;
 }
 
 /**
@@ -12,6 +13,7 @@ interface Props {
  */
 
 function ProductCard({ product }: Props) {
+  const hasDiscount = product.discountedPrice < product.price;
   return (
     <li className={styles.card}>
       <div>
@@ -22,9 +24,12 @@ function ProductCard({ product }: Props) {
         <span className={styles.category}>{product.category}</span>
         <h3 className={styles.title}>{product.title}</h3>
 
-        <div className={styles.priceRow}>
-          <span>{product.price}</span>
-        </div>
+          <div className={styles.priceRow}>
+            <span className={styles.price}>{formatPrice(product.discountedPrice)}</span>
+            {hasDiscount && (
+              <span className={styles.original}>{formatPrice(product.price)}</span>
+            )}
+          </div>
 
         <span className={styles.rating}>
           ★ {product.rating.rate}

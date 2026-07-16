@@ -1,9 +1,9 @@
 import ProductCard from "./ProductCard";
 import styles from "../../../assets/css/ProductGrid.module.css";
-import type { ApiProduct } from "../types";
+import type { Product } from "../types";
 
 interface Props {
-  products: ApiProduct[];
+  products: Product[];
 }
 
 /**

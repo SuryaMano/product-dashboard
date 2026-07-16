@@ -12,5 +12,7 @@ export function useProducts() {
 
   return {
     products: query.data ?? [],
+    isLoading: query.isPending,
+    isError: query.isError
   };
 }

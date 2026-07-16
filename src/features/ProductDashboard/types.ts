@@ -12,3 +12,8 @@ export interface ApiProduct {
   image: string;
   rating: Rating;
 }
+
+export interface Product extends ApiProduct {
+  discountRate: number;
+  discountedPrice: number;
+}
