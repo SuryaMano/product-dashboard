@@ -1,0 +1,58 @@
+.card {
+  list-style: none;
+}
+
+.image {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.9rem 1rem 1.1rem;
+  border-top: 1px solid var(--border);
+}
+
+.category {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.price {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.rating {
+  font-size: 0.85rem;
+  color: #b45309;
+}
+
+.ratingCount {
+  margin-left: 0.3rem;
+  color: var(--muted);
+}
+
+
