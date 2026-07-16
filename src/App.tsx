@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 import { useProducts } from "./features/ProductDashboard/hooks/useProduct";
 import { clearSelectedProduct, selectProduct } from "./store/dashboardSlice";
@@ -8,6 +8,7 @@ import ProductGrid from "./features/ProductDashboard/components/ProductGrid";
 import SearchBar from './features/ProductDashboard/components/SearchBar';
 import SortControls from "./features/ProductDashboard/components/SortControls";
 import ProductModal from "./features/ProductDashboard/components/ProductModal";
+import Pagination from "./features/ProductDashboard/components/Pagination";
 import { filterAndSortProducts } from "./utils/products";
 import styles from "./app.module.css";
 
@@ -18,18 +19,26 @@ export default function App() {
   const sortDirection = useAppSelector((state: any) => state.dashboard.sortDirection);
   const selectedProduct = useAppSelector((state: any) => state.dashboard.selectedProduct);
   const { isLoading, isError, products } = useProducts();
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 8;
 
   const visibleProducts = useMemo(
     () => filterAndSortProducts(products, { searchTerm, sortKey, sortDirection }),
     [products, searchTerm, sortKey, sortDirection]
   );
 
+  const totalPages = Math.ceil(visibleProducts.length / PAGE_SIZE);
+  const pageItems = visibleProducts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   function renderContent() {
     if (isLoading) return <Loader label="Loading Products..." />;
     if (isError) return <StateFallback message="Unable to load data. Please try again later." />;
     if (visibleProducts.length === 0) return <StateFallback message="No results found" />;
     return (
-      <ProductGrid products={visibleProducts} onSelect={(product) => dispatch(selectProduct(product))} />
+      <>
+        <ProductGrid products={pageItems} onSelect={(product) => dispatch(selectProduct(product))} />
+        <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+      </>
     );
   }
 
